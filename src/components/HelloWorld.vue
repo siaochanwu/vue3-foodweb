@@ -1,14 +1,25 @@
 <template>
-  <div class="login">
-    
+  <div>
+    <a href="" @click.prevent="signout">sign out</a>
   </div>
 </template>
 
 <script>
 export default {
   name: 'HelloWorld',
-  props: {
-    msg: String
+  methods: {
+    signout () {
+      const api = `${process.env.VUE_APP_API}/logout`
+      console.log(api)
+      this.$http
+        .post(api)
+        .then(res => {
+          console.log(res)
+          if (res.data.success) {
+            this.$router.push('/login')
+          }
+        })
+    }
   }
 }
 </script>
