@@ -24,8 +24,27 @@ export default new Router({
     {
       path: '/admin',
       name: 'dash',
-      meta: { requiresAuth: true },
-      component: () => import('./views/Dash.vue')
+      component: () => import('./views/Dash.vue'),
+      children: [
+        {
+          path: 'products',
+          name: 'Products',
+          meta: { requiresAuth: true },
+          component: () => import('./views/Products.vue')
+        },
+        {
+          path: 'orders',
+          name: 'Orders',
+          meta: { requiresAuth: true },
+          component: () => import('./views/Orders.vue')
+        },
+        {
+          path: 'coupons',
+          name: 'Coupons',
+          meta: { requiresAuth: true },
+          component: () => import('./views/Coupons.vue')
+        }
+      ]
     }
   ]
 })
