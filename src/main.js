@@ -1,6 +1,7 @@
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import 'bootstrap'
+import $ from 'jquery'
 
 import Vue from 'vue'
 import App from './App.vue'

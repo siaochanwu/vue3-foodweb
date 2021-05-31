@@ -13,13 +13,13 @@ export default {
     return {}
   },
   created () {
-    const api = `${process.env.VUE_APP_API}/${process.env.VUE_APP_CUSTOMER}/products`
-    console.log(api)
-    this.$http
-      .get(api)
-      .then(res => {
-        console.log(res)
-      })
+    // const api = `${process.env.VUE_APP_API}/${process.env.VUE_APP_CUSTOMER}/products`
+    // console.log(api)
+    // this.$http
+    //   .get(api)
+    //   .then(res => {
+    //     console.log(res)
+    //   })
   }
 }
 </script>

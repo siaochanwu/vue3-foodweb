@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Home from './views/Home.vue'
 
 Vue.use(Router)
 
@@ -12,39 +11,26 @@ export default new Router({
     },
     {
       path: '/',
-      name: 'home',
-      meta: { requiresAuth: true },
-      component: Home
-    },
-    {
-      path: '/login',
-      name: 'login',
-      component: () => import('./views/Login.vue')
-    },
-    {
-      path: '/admin',
-      name: 'dash',
-      component: () => import('./views/Dash.vue'),
+      name: 'main',
+      component: () => import('./views/Main.vue'),
       children: [
         {
-          path: 'products',
-          name: 'Products',
-          meta: { requiresAuth: true },
-          component: () => import('./views/Products.vue')
+          path: 'story',
+          name: 'story',
+          component: () => import('./views/Story.vue')
         },
         {
-          path: 'orders',
-          name: 'Orders',
-          meta: { requiresAuth: true },
-          component: () => import('./views/Orders.vue')
+          path: 'menu',
+          name: 'menu',
+          component: () => import('./components/Menu.vue')
         },
         {
-          path: 'coupons',
-          name: 'Coupons',
-          meta: { requiresAuth: true },
-          component: () => import('./views/Coupons.vue')
+          path: 'activity',
+          name: 'activity',
+          component: () => import('./views/Activity.vue')
         }
       ]
-    }
+    },
+
   ]
 })
