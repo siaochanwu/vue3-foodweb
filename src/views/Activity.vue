@@ -4,13 +4,13 @@
 
     <div class="row featurette">
       <div class="col-md-7">
-        <h2 class="featurette-heading mb-5">向醫護人員們致敬</h2>
+        <h2 class="featurette-heading mb-5 mt-5">向醫護人員們致敬</h2>
         <p class="lead">醫護及軍警消人員即日起至2021/6/30，至本店外帶餐點即享5折優惠。</p>
         <p class="lead">除了大力支援醫院餐食，並提供防疫旅館外送服務外，即日起至6月30日至全台門市外帶不限消費金額，醫護人員出示執業執照、防疫人員出示疾管署工作證，可享蒸餃子免費兌換1籠。</p>
+        <p class="fs-3">折扣碼 : <span class="badge bg-light text-dark fs-3">FIGHTCOVID</span></p>
       </div>
       <div class="col-md-5 overflow-hidden">
         <img src="../assets/img1.jpg" alt="">
-
       </div>
     </div>
 
@@ -25,7 +25,6 @@
       </div>
       <div class="col-md-5 order-md-1">
         <img src="../assets/img4.jpg" style="width:90%" alt="">
-
       </div>
     </div>
 
@@ -33,17 +32,16 @@
 
     <div class="row featurette">
       <div class="col-md-7">
-        <h2 class="featurette-heading mt-5 mb-5">健人們 ! 有口福啦 !</h2>
+        <h2 class="featurette-heading mt-4 mb-5">健人們 ! 有口福啦 !</h2>
         <p class="lead">眾所期待的好消息!本店與花椰菜健身房聯名推出健身餐盒，
           讓健身的你不用擔心蛋白質補充不足、營養不均衡，這次的聯名餐盒都是由合格營養師把關核可。</p>
-        <p>凡出示花椰菜健身房會員卡即可享八折優惠。</p>
+        <p>**凡出示花椰菜健身房會員卡即可享八折優惠。</p>
+        <p class="fs-3">折扣碼 : <span class="badge bg-light text-dark fs-3">BROCCOLIGYM</span></p>
       </div>
       <div class="col-md-5">
         <img src="../assets/img5.jpg" style="width:100%" alt="">
       </div>
     </div>
-
-    <hr class="featurette-divider">
 </div>
 </template>
 

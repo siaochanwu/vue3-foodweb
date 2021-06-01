@@ -49,13 +49,13 @@
       排序依據
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-      <li><a class="dropdown-item" @click="category ='decending'">價格:由低到高</a></li>
-      <li><a class="dropdown-item" @click="category ='ascending'">價格:由高到低</a></li>
-      <li><a class="dropdown-item" @click="category = 'main'">主餐</a></li>
-      <li><a class="dropdown-item" @click="category = 'light'">輕食</a></li>
-      <li><a class="dropdown-item" @click="category = 'sweet'">甜點</a></li>
-      <li><a class="dropdown-item" @click="category = 'drink'">飲品</a></li>
-      <li><a class="dropdown-item" @click="category = 'alcohol'">酒精</a></li>
+      <li><button class="dropdown-item" @click="category ='decending'">價格:由低到高</button></li>
+      <li><button class="dropdown-item" @click="category ='ascending'">價格:由高到低</button></li>
+      <li><button class="dropdown-item" @click="category = 'main'">主餐</button></li>
+      <li><button class="dropdown-item" @click="category = 'light'">輕食</button></li>
+      <li><button class="dropdown-item" @click="category = 'sweet'">甜點</button></li>
+      <li><button class="dropdown-item" @click="category = 'drink'">飲品</button></li>
+      <li><button class="dropdown-item" @click="category = 'alcohol'">酒精</button></li>
     </ul>
   </div>
 
@@ -197,7 +197,7 @@ export default {
   methods: {
     getProducts () {
       const vm = this
-      const api = `https://vue-course-api.hexschool.io/api/wendywu007/products/all`
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/products/all`
       this.$store.dispatch('LOADING', true)
       this.$http.get(api).then((response) => {
         vm.products = response.data.products

@@ -13,9 +13,9 @@
         <span class="title fw-bold fs-3 border border-top-0 border-start-0 border-end-0 border-success border-5">購物車</span>
           <table class="table mt-4">
             <thead>
-              <th class="ps-3 fs-5">商品名稱</th>
-              <th class="ps-3 fs-5">數量</th>
-              <th class="ps-3 fs-5">單價</th>
+              <th class="ps-2 fs-5">商品名稱</th>
+              <th class="ps-2 fs-5">數量</th>
+              <th class="ps-2 fs-5">單價</th>
               <th></th>
             </thead>
             <tbody>
@@ -29,7 +29,7 @@
                 <td class="align-middle">
                   {{ item.qty }}/{{ item.product.unit }}
                 </td>
-                <td class="align-middle text-right">{{ item.final_total }}</td>
+                <td class="align-middle text-right">${{ item.final_total }}</td>
                 <td class="align-middle">
                   <button
                     type="button"
@@ -48,7 +48,7 @@
               </tr>
               <tr v-if="cart.final_total !== cart.total">
                 <td colspan="3" class="text-right text-success">折扣價</td>
-                <td class="text-right text-success">{{ cart.final_total }}</td>
+                <td class="text-right text-success">${{ cart.final_total }}</td>
               </tr>
             </tfoot>
           </table>
@@ -179,7 +179,7 @@ export default {
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/coupon`
       const coupon = {
         code: vm.coupon_code
-      };
+      }
       this.$store.dispatch('LOADING', true)
       this.$http.post(api, { data: coupon }).then((response) => {
         console.log(response)
