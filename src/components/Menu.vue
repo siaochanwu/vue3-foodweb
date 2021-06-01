@@ -42,10 +42,27 @@
       <span class="visually-hidden">Next</span>
     </a>
   </div>
+
+  <!-- 資料篩選 -->
+  <div class="dropdown container mb-3">
+    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+      排序依據
+    </button>
+    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+      <li><a class="dropdown-item" @click="category ='decending'">價格:由低到高</a></li>
+      <li><a class="dropdown-item" @click="category ='ascending'">價格:由高到低</a></li>
+      <li><a class="dropdown-item" @click="category = 'main'">主餐</a></li>
+      <li><a class="dropdown-item" @click="category = 'light'">輕食</a></li>
+      <li><a class="dropdown-item" @click="category = 'sweet'">甜點</a></li>
+      <li><a class="dropdown-item" @click="category = 'drink'">飲品</a></li>
+      <li><a class="dropdown-item" @click="category = 'alcohol'">酒精</a></li>
+    </ul>
+  </div>
+
   <div class="container marketing" id="menu">
     <!-- Three columns of text below the carousel -->
     <div class="row">
-      <div class="col-lg-4 col-md-6 col-sm-12" v-for="item in products" :key="item.id">
+      <div class="col-lg-4 col-md-6 col-sm-12" v-for="item in filterData" :key="item.id">
         <div class="card">
           <img src="" class="card-img-top" alt="">
           <div class="card-body">
@@ -206,7 +223,7 @@ export default {
       const cart = {
         product_id: id,
         qty
-      };
+      }
       this.$http.post(api, { data: cart }).then((response) => {
         console.log(response)
         vm.status.loadingItem = ''
@@ -238,6 +255,65 @@ export default {
   created () {
     this.getProducts()
     this.getCart()
+  },
+  computed: {
+    filterData: function () {
+      if (this.category === 'main') {
+        var main = []
+        this.products.forEach(function (item) {
+          if (item.category === '主餐') {
+            main.push(item)
+          }
+        })
+        return main
+      } else if (this.category === 'light') {
+        var light = []
+        this.products.forEach(function (item) {
+          if (item.category === '輕食') {
+            light.push(item)
+          }
+        })
+        return light
+      } else if (this.category === 'sweet') {
+        var sweet = []
+        this.products.forEach(function (item) {
+          if (item.category === '甜點') {
+            sweet.push(item)
+          }
+        })
+        return sweet
+      } else if (this.category === 'drink') {
+        var drink = []
+        this.products.forEach(function (item) {
+          if (item.category === '飲品') {
+            drink.push(item)
+          }
+        })
+        return drink
+      } else if (this.category === 'alcohol') {
+        var alcohol = []
+        this.products.forEach(function (item) {
+          if (item.category === '酒精') {
+            alcohol.push(item)
+          }
+        })
+        return alcohol
+      } else if (this.category === 'decending') {
+        return this.products.sort((a, b) => {
+          a = a.price
+          b = b.price
+          return a - b
+        })
+      } else if (this.category === 'ascending') {
+        return this.products.sort((a, b) => {
+          a = a.price
+          b = b.price
+          return b - a
+        })
+      } else {
+        return this.products
+      }
+    }
   }
 }
 </script>

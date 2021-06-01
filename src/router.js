@@ -28,9 +28,13 @@ export default new Router({
           path: 'activity',
           name: 'activity',
           component: () => import('./views/Activity.vue')
+        },
+        {
+          path: 'customer_order',
+          name: 'customerOrder',
+          component: () => import('./views/CustomerOrder.vue')
         }
       ]
-    },
-
+    }
   ]
 })

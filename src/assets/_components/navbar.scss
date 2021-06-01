@@ -5,6 +5,9 @@
 .cartdetail {
     top: 70px;
     right: 10px;
-    width: 20%;
+    max-width: 30%;
     height: auto;
+    &.close{
+        display: none;
+    }
 }

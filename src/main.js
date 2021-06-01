@@ -2,6 +2,9 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import 'bootstrap'
 import $ from 'jquery'
+import { ValidationObserver, ValidationProvider, extend, localize} from 'vee-validate'
+import TW from 'vee-validate/dist/locale/zh_TW.json'
+import * as rules from 'vee-validate/dist/rules'
 
 import Vue from 'vue'
 import App from './App.vue'
@@ -11,6 +14,15 @@ import store from './store'
 axios.defaults.withCredentials = true
 Vue.config.productionTip = false
 Vue.use(VueAxios, axios)
+
+Vue.component('ValidationObserver', ValidationObserver)
+Vue.component('ValidationProvider', ValidationProvider)
+
+Object.keys(rules).forEach((rule) => {
+  extend(rule, rules[rule])
+})
+
+localize('zh_TW', TW)
 
 new Vue({
   router,
