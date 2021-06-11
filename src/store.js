@@ -16,9 +16,6 @@ export default new Vuex.Store({
     FAVORITES (state, payload) {
       state.favorites = payload
     },
-    FAVORITES_LENGTH (state, payload) {
-      state.favoritesLength = payload
-    },
     PUSH_FAVORITE (state, favorite) {
       state.favorites.push(favorite)
     },
@@ -37,8 +34,6 @@ export default new Vuex.Store({
     getFavorite (context) {
       const favoriteData = JSON.parse(localStorage.getItem('favoriteData')) || []
       context.commit('FAVORITES', favoriteData)
-      // context.commit('FAVORITES_LENGTH', favoriteData.length)
-      // context.dispatch('productsModules/getProducts', { isPagination: false }, { root: true })
     },
     addToFavorite (context, product) {
       const favoriteData = {
@@ -48,13 +43,11 @@ export default new Vuex.Store({
       context.commit('PUSH_FAVORITE', favoriteData)
       localStorage.setItem('favoriteData', JSON.stringify(context.state.favorites))
       context.dispatch('getFavorite')
-      // context.dispatch('alertMessageModules/updateMessage', { message: '已加入我的最愛', status: 'success' }, { root: true })
     },
     removeFavorite (context, favoriteItem) {
       context.commit('REMOVE_FAVORITE', favoriteItem)
       localStorage.setItem('favoriteData', JSON.stringify(context.state.favorites))
       context.dispatch('getFavorite')
-      // context.dispatch('alertMessageModules/updateMessage', { message: '已刪除我的最愛', status: 'warning' }, { root: true })
     }
 
   },

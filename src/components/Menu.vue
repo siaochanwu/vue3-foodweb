@@ -1,61 +1,28 @@
 <template lang="">
-  <div class="Menu">
-    <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img class="bd-placeholder-img" width="100%" height="100%" src="../assets/img3.jpg" aria-hidden="true">
-        <div class="container">
-          <div class="carousel-caption text-start ">
-            <h1 class="p-2 fw-bold">今晚 我想來點......</h1>
-            <p class="px-3">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-            <p class="px-3"><a class="btn btn-lg btn-danger" href="#menu" role="button">查看菜單</a></p>
-          </div>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <img class="bd-placeholder-img" width="100%" height="100%" src="../assets/img1.jpg" aria-hidden="true">
-        <div class="container">
-          <div class="carousel-caption">
-            <h1 class="text-warning fw-bold">向醫護人員致敬</h1>
-            <p class="px-3 text-warning">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
-            <p class="px-3"><a class="btn btn-lg btn-warning fw-bold" href="#menu" role="button">查看菜單</a></p>
-          </div>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <img class="bd-placeholder-img" width="100%" height="100%" src="../assets/img2.jpg" aria-hidden="true">
-        <div class="container">
-          <div class="carousel-caption text-end">
-            <h1 class="p-3">立即下單 外送到家</h1>
-            <p class="px-3">防疫期間 外送提供您最多的選擇 只需一通電話 立即送到家</p>
-            <p class="px-3"><a class="btn btn-lg btn-danger" href="#menu" role="button">查看菜單</a></p>
-          </div>
-        </div>
+  <div class="Menu container">
+
+  <div class="row mt-3">
+    <div class="col-2 mt-5 pt-2">
+      <div class="list-group" style="width:100%">
+        <a href="#" class="list-group-item list-group-item-action active list-group-item-light" aria-current="true">
+          ALL
+        </a>
+        <a href="#" class="list-group-item list-group-item-action list-group-item-light" @click="category = 'main'">主餐</a>
+        <a href="#" class="list-group-item list-group-item-action list-group-item-light" @click="category = 'light'">輕食</a>
+        <a href="#" class="list-group-item list-group-item-action list-group-item-light" @click="category = 'sweet'">甜點</a>
+        <a href="#" class="list-group-item list-group-item-action list-group-item-light" @click="category = 'drink'">飲品</a>
+        <a href="#" class="list-group-item list-group-item-action list-group-item-light" @click="category = 'alcohol'">酒精</a>
       </div>
     </div>
-    <a class="carousel-control-prev" href="#myCarousel" role="button" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </a>
-    <a class="carousel-control-next" href="#myCarousel" role="button" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </a>
-  </div>
-
-  <!-- 資料篩選 -->
+    <div class="col-10">
+      <!-- 資料篩選 -->
   <div class="dropdown container mb-3">
     <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
       排序依據
     </button>
     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-      <li><button class="dropdown-item" @click="category ='decending'">價格:由低到高</button></li>
-      <li><button class="dropdown-item" @click="category ='ascending'">價格:由高到低</button></li>
-      <li><button class="dropdown-item" @click="category = 'main'">主餐</button></li>
-      <li><button class="dropdown-item" @click="category = 'light'">輕食</button></li>
-      <li><button class="dropdown-item" @click="category = 'sweet'">甜點</button></li>
-      <li><button class="dropdown-item" @click="category = 'drink'">飲品</button></li>
-      <li><button class="dropdown-item" @click="category = 'alcohol'">酒精</button></li>
+      <li><button class="dropdown-item" @click="category ='decending'">價格 : 由低到高</button></li>
+      <li><button class="dropdown-item" @click="category ='ascending'">價格 : 由高到低</button></li>
     </ul>
   </div>
 
@@ -169,6 +136,9 @@
         </div>
       </div>
     </div>
+    </div>
+  </div>
+
   </div>
 </template>
 

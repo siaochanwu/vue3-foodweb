@@ -1,8 +1,9 @@
 .Menu {
-    .carousel-caption{
-        background-color: rgba($color: #d3d2d2, $alpha: 0.3);
+    .container {
+        padding: 0;
+        .none {
+            display: none;
+        }
     }
-    .none {
-        display: none;
-    }
+    
 }
