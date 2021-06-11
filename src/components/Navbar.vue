@@ -1,7 +1,9 @@
 <template lang="">
   <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-secondary sticky-top">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">EatWell</a>
+      <router-link to="/">
+      <a class="navbar-brand text-decoration-none" href="#"><i class="fas fa-carrot">EatWell</i></a>
+      </router-link>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>

@@ -11,9 +11,14 @@ export default new Router({
     },
     {
       path: '/',
-      name: 'main',
+      // name: 'main',
       component: () => import('./views/Main.vue'),
       children: [
+        {
+          path: '/',
+          name: 'home',
+          component: () => import('./views/Home.vue')
+        },
         {
           path: 'story',
           name: 'story',
@@ -23,6 +28,11 @@ export default new Router({
           path: 'menu',
           name: 'menu',
           component: () => import('./components/Menu.vue')
+        },
+        {
+          path: 'menu/:productId',
+          name: 'product',
+          component: () => import('./views/Product.vue')
         },
         {
           path: 'activity',
