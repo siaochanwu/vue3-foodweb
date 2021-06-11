@@ -8,13 +8,13 @@
       <div class="collapse navbar-collapse position-relative" id="navbarCollapse">
         <ul class="navbar-nav me-auto mb-2 mb-md-0 nav justify-content-end">
           <li class="nav-item active">
-            <router-link to="/main/story" class="nav-link" aria-current="page">品牌故事</router-link>
+            <router-link to="/story" class="nav-link" aria-current="page">品牌故事</router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/main/activity" class="nav-link" aria-current="page">活動</router-link>
+            <router-link to="/activity" class="nav-link" aria-current="page">活動</router-link>
           </li>
           <li class="nav-item dropdown">
-          <router-link to="/main/menu" class="nav-link" aria-current="page">菜單</router-link>
+          <router-link to="/menu" class="nav-link" aria-current="page">菜單</router-link>
         </li>
         </ul>
         <form class="d-flex">
@@ -152,7 +152,7 @@ export default {
   },
   created () {
     this.getCart()
-    this.getProducts()
+    // this.getProducts()
   },
   computed: {
     hasData () {

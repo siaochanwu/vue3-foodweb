@@ -1,5 +1,5 @@
-<template>
-  <div class="container-fluid mt-5 border px-5 bg-dark text-white position-relative">
+<template lang="">
+  <footer class="container-fluid mt-5 border px-5 bg-dark text-white position-relative">
     <div class="row">
       <div class="col-6 px-5 my-5 lh-1">
         <p>營業時間</p>
@@ -17,5 +17,14 @@
         </a>
       </div>
     </div>
-  </div>
+  </footer>
 </template>
+
+<script>
+export default {
+  data () {
+    return {
+    }
+  }
+}
+</script>

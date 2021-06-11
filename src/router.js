@@ -10,7 +10,7 @@ export default new Router({
       redirect: 'menu'
     },
     {
-      path: '/main',
+      path: '/',
       name: 'main',
       component: () => import('./views/Main.vue'),
       children: [

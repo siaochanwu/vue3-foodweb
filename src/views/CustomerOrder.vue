@@ -180,18 +180,18 @@ export default {
       const coupon = {
         code: vm.coupon_code
       }
-      this.$store.dispatch('LOADING', true)
+      this.$store.dispatch('loading', true)
       this.$http.post(api, { data: coupon }).then((response) => {
         console.log(response)
         vm.getCart()
-        this.$store.dispatch('LOADING', false)
+        this.$store.dispatch('loading', false)
       })
     },
     createOrder () {
       const vm = this
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/order`
       const order = vm.form
-      this.$store.dispatch('LOADING', true)
+      this.$store.dispatch('loading', true)
       vm.$refs.form.validate().then((success) => {
         if (success) {
           vm.$http.post(api, { data: order }).then((response) => {
@@ -199,7 +199,7 @@ export default {
             if (response.data.success) {
               vm.$router.push(`/customer_checkout/${response.data.orderId}`)
             }
-            this.$store.dispatch('LOADING', false)
+            this.$store.dispatch('loading', false)
           })
         } else {
           console.log('欄位不完整')
@@ -208,12 +208,12 @@ export default {
     },
     getCart () {
       const vm = this
-      this.$store.dispatch('LOADING', true)
+      this.$store.dispatch('loading', true)
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/cart`
       this.$http.get(api).then((response) => {
         console.log(response)
         vm.cart = response.data.data
-        this.$store.dispatch('LOADING', false)
+        this.$store.dispatch('loading', false)
       })
     },
     addtoCart (id, qty = 1) {

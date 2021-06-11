@@ -1,5 +1,5 @@
 <template lang="">
-  <div>
+  <div class="Menu">
     <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
     <div class="carousel-inner">
       <div class="carousel-item active">
@@ -91,13 +91,16 @@
                     </div>
                 </div>
                 <div class="card-footer d-flex justify-content-between">
-                    <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#productModal" @click="getProduct(item.id)">
+
+                    <!-- <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#productModal" @click="getProduct(item.id)">
                       <i
                         class="fas fa-spinner fa-spin"
                         v-if="status.loadingItem === item.id"
                       ></i>
                       查看更多
-                    </button>
+                    </button> -->
+                      <i class="far fa-heart fs-3" :class="{'none' : item.isFollow}" @click="follow(item)"></i>
+                      <i class="fas fa-heart fs-3" :class="{'none' : !item.isFollow}" @click="unfollow(item)"></i>
                     <button type="button" class="btn btn-outline-danger btn-sm ml-auto" @click="addtoCart(item.id)">
                     <i
                       class="fas fa-spinner fa-spin"
@@ -171,6 +174,7 @@
 
 <script>
 import $ from 'jquery'
+import { mapGetters } from 'vuex'
 
 export default {
   data () {
@@ -191,18 +195,28 @@ export default {
         },
         message: ''
       },
-      category: ''
+      category: '',
+      // isFollow: false
     }
   },
   methods: {
     getProducts () {
       const vm = this
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/products/all`
-      this.$store.dispatch('LOADING', true)
+      this.$store.dispatch('loading', true)
       this.$http.get(api).then((response) => {
         vm.products = response.data.products
+        for (let i = 0; i < vm.products.length; i++) {
+          // vm.$set(vm.products[i], 'isFollow', false)
+          // vm.favorites.forEach((item) => {
+          //   if (vm.products[i].id === item.id) {
+          //     console.log(item)
+          //     vm.isFollow = true
+          //   }
+          // })
+        }
         console.log(response)
-        this.$store.dispatch('LOADING', false)
+        this.$store.dispatch('loading', false)
       })
     },
     getProduct (id) {
@@ -233,23 +247,31 @@ export default {
     },
     getCart () {
       const vm = this
-      this.$store.dispatch('LOADING', true)
+      this.$store.dispatch('loading', true)
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/cart`
       this.$http.get(api).then((response) => {
         console.log(response)
         vm.cart = response.data.data
-        this.$store.dispatch('LOADING', false)
+        this.$store.dispatch('loading', false)
       })
     },
     removeItem (id) {
       const vm = this
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/cart/${id}`
-      this.$store.dispatch('LOADING', true)
+      this.$store.dispatch('loading', true)
       this.$http.delete(api).then((response) => {
         console.log(response)
         vm.getCart()
-        this.$store.dispatch('LOADING', false)
+        this.$store.dispatch('loading', false)
       })
+    },
+    follow (product) {
+      this.$store.dispatch('addToFavorite', product)
+      product.isFollow = true
+    },
+    unfollow (product) {
+      this.$store.dispatch('removeFavorite', product)
+      product.isFollow = false
     }
   },
   created () {
@@ -313,7 +335,8 @@ export default {
       } else {
         return this.products
       }
-    }
+    },
+    ...mapGetters(['favorites'])
   }
 }
 </script>
