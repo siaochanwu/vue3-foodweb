@@ -1,5 +1,15 @@
 <template lang="">
 <div class="Menu">
+  <loading :active.sync="isLoading">
+    <!-- 客製樣式 -->
+    <div class="load-wrapp">
+      <div class="load-3">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+      </div>
+    </div>
+  </loading>
   <div class="container">
     <loading :active.sync="isLoading">
       <!-- 客製樣式 -->
@@ -266,31 +276,31 @@ export default {
   methods: {
     getProducts() {
       const vm = this;
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/products/all`;
-      this.$store.dispatch("loading", true);
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/products/all`
+      this.$store.dispatch("loading", true)
       this.$http.get(api).then(response => {
-        vm.products = response.data.products;
+        vm.products = response.data.products
         for (let i = 0; i < vm.products.length; i++) {
-          vm.$set(vm.products[i], "isFollow", false);
+          vm.$set(vm.products[i], "isFollow", false)
           vm.favorites.forEach(item => {
             if (vm.products[i].id === item.id) {
-              console.log(item);
-              vm.isFollow = true;
+              console.log(item)
+              vm.isFollow = true
             }
           });
         }
-        console.log(response);
-        this.$store.dispatch("loading", true);
+        console.log(response)
+        this.$store.dispatch("loading", false)
       });
     },
     getProduct(id) {
-      const vm = this;
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/product/${id}`;
-      vm.status.loadingItem = id;
+      const vm = this
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/product/${id}`
+      vm.status.loadingItem = id
       this.$http.get(api).then(response => {
-        vm.product = response.data.product;
-        vm.status.loadingItem = "";
-      });
+        vm.product = response.data.product
+        vm.status.loadingItem = ""
+      })
     },
     addtoCart(id, qty = 1) {
       const vm = this;
@@ -328,12 +338,12 @@ export default {
       });
     },
     follow(product) {
-      this.$store.dispatch("addToFavorite", product);
-      product.isFollow = true;
+      this.$store.dispatch("addToFavorite", product)
+      product.isFollow = true
     },
     unfollow(product) {
-      this.$store.dispatch("removeFavorite", product);
-      product.isFollow = false;
+      this.$store.dispatch("removeFavorite", product)
+      product.isFollow = false
     }
   },
   created() {
