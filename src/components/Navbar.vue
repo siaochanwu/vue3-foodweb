@@ -88,7 +88,8 @@ export default {
       cartData: {},
       status: {
         loadingItem: ''
-      }
+      },
+      searchText: ''
     }
   },
   methods: {
@@ -150,6 +151,10 @@ export default {
     },
     seecart () {
       this.active = !this.active
+    },
+    search () {
+      if (this.searchText === '') return
+
     }
   },
   created () {
@@ -159,7 +164,7 @@ export default {
   computed: {
     hasData () {
       return this.cartData.length > 0 ? true : false
-    }
+    },
   }
 }
 </script>

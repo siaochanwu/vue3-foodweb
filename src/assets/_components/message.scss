@@ -1,0 +1,16 @@
+.Message {
+    position: absolute;
+    top: 0%;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: 0.5s all;
+    opacity: 0;
+    overflow: hidden;
+    height: 0;
+    &.open {
+        top: 10%;
+        opacity: 1;
+        height: 200px;
+        overflow: visible;
+    }
+}

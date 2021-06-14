@@ -237,7 +237,6 @@ export default {
         },
         message: ""
       },
-      // category: ""
       categories: [
         { name: 'all', title: 'ALL' },
         { name: 'main', title: '主餐' },
@@ -257,12 +256,13 @@ export default {
       this.$store.dispatch("loading", true)
       this.$http.get(api).then(response => {
         vm.products = response.data.products
+        const favoriteData = JSON.parse(localStorage.getItem('favoriteData'))
+        console.log(favoriteData)
         for (let i = 0; i < vm.products.length; i++) {
-          vm.$set(vm.products[i], "isFollow", false)
-          vm.favorites.forEach(item => {
-            if (vm.products[i].id === item.id) {
-              console.log(item)
-              vm.isFollow = true
+          this.$set(this.products[i], "isFollow", false)
+          favoriteData.forEach(item => {
+            if (item.id === this.products[i].id) {
+              this.products[i].isFollow = true
             }
           });
         }
@@ -332,7 +332,7 @@ export default {
       if (this.$route.query.category) {
         this.$router.push('/menu')
       }
-    },
+    }
   },
   created () {
     this.getProducts()

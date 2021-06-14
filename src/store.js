@@ -6,7 +6,10 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isLoading: false,
-    favorites: []
+    favorites: [],
+    msg: '',
+    msgModal: false,
+    msgMask: false,
   },
   mutations: {
     LOADING (state, payload) {
@@ -25,7 +28,12 @@ export default new Vuex.Store({
           state.favorites.splice(index, 1)
         }
       })
-    }
+    },
+    MSG (state, payload) {
+      // state.msgMask = payload.Boolean
+      state.msgState = payload.msgState
+      state.msg = payload.msg
+    },
   },
   actions: {
     loading (context, payload) {
@@ -48,8 +56,10 @@ export default new Vuex.Store({
       context.commit('REMOVE_FAVORITE', favoriteItem)
       localStorage.setItem('favoriteData', JSON.stringify(context.state.favorites))
       context.dispatch('getFavorite')
+    },
+    msg (context, payload) {
+      context.commit('MSG', payload)
     }
-
   },
   getters: {
     favorites: state => state.favorites
