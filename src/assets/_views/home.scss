@@ -1,0 +1,24 @@
+.home {
+  .imgtext {
+      background-color: rgba(192, 192, 192, 0.548);
+      
+  }
+  .img {
+    opacity: 1;
+    transition: .5s ease;
+    display: block;
+  }
+  .hot:hover .img{
+    opacity: 0.3;
+  }
+  .text {
+    opacity: 0;
+    transition: .5s ease;
+    background: rgb(241, 226, 88);
+    padding: 10px;
+    color: #000;
+  }
+  .hot:hover .text{
+    opacity: 1;
+  }
+}

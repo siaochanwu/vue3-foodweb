@@ -25,42 +25,10 @@
       <div class="col-2 mt-5 pt-2">
         <div class="list-group" style="width:100%">
           <a
-            href="#"
-            class="list-group-item list-group-item-action active list-group-item-light"
-            aria-current="true"
-          >
-            ALL
+            href="#" v-for="(item, index) in categories" :key="index" @click="getCategory(item.title)"
+            class="list-group-item list-group-item-action list-group-item-light"
+            >{{ item.title }}
           </a>
-          <a
-            href="#"
-            class="list-group-item list-group-item-action list-group-item-light"
-            @click="category = 'main'"
-            >主餐</a
-          >
-          <a
-            href="#"
-            class="list-group-item list-group-item-action list-group-item-light"
-            @click="category = 'light'"
-            >輕食</a
-          >
-          <a
-            href="#"
-            class="list-group-item list-group-item-action list-group-item-light"
-            @click="category = 'sweet'"
-            >甜點</a
-          >
-          <a
-            href="#"
-            class="list-group-item list-group-item-action list-group-item-light"
-            @click="category = 'drink'"
-            >飲品</a
-          >
-          <a
-            href="#"
-            class="list-group-item list-group-item-action list-group-item-light"
-            @click="category = 'alcohol'"
-            >酒精</a
-          >
         </div>
       </div>
       <div class="col-10">
@@ -94,7 +62,7 @@
           <div class="row">
             <div
               class="col-lg-4 col-md-6 col-sm-12"
-              v-for="item in filterData"
+              v-for="item in filterProducts"
               :key="item.id"
             >
               <div class="card">
@@ -242,7 +210,7 @@
     </div>
   </div>
 </div>
-</div>
+
 </template>
 
 <script>
@@ -251,7 +219,7 @@ import { mapGetters } from "vuex"
 import { mapState } from 'vuex'
 
 export default {
-  data() {
+  data () {
     return {
       products: [],
       product: {},
@@ -269,12 +237,21 @@ export default {
         },
         message: ""
       },
-      category: ""
+      // category: ""
+      categories: [
+        { name: 'all', title: 'ALL' },
+        { name: 'main', title: '主餐' },
+        { name: 'light', title: '輕食' },
+        { name: 'sweet', title: '甜點' },
+        { name: 'drink', title: '飲品' },
+        { name: 'alcohol', title: '酒精' }
+      ],
+      select: 'ALL'
       // isFollow: false
     };
   },
   methods: {
-    getProducts() {
+    getProducts () {
       const vm = this;
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/products/all`
       this.$store.dispatch("loading", true)
@@ -293,7 +270,7 @@ export default {
         this.$store.dispatch("loading", false)
       });
     },
-    getProduct(id) {
+    getProduct (id) {
       const vm = this
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/product/${id}`
       vm.status.loadingItem = id
@@ -302,7 +279,7 @@ export default {
         vm.status.loadingItem = ""
       })
     },
-    addtoCart(id, qty = 1) {
+    addtoCart (id, qty = 1) {
       const vm = this;
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/cart`;
       vm.status.loadingItem = id;
@@ -317,7 +294,7 @@ export default {
         $("#productModal").modal("hide");
       });
     },
-    getCart() {
+    getCart () {
       const vm = this;
       this.$store.dispatch("loading", true);
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/cart`;
@@ -327,7 +304,7 @@ export default {
         this.$store.dispatch("loading", false);
       });
     },
-    removeItem(id) {
+    removeItem (id) {
       const vm = this;
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/cart/${id}`;
       this.$store.dispatch("loading", true);
@@ -337,76 +314,41 @@ export default {
         this.$store.dispatch("loading", false);
       });
     },
-    follow(product) {
+    follow (product) {
       this.$store.dispatch("addToFavorite", product)
       product.isFollow = true
     },
-    unfollow(product) {
+    unfollow (product) {
       this.$store.dispatch("removeFavorite", product)
       product.isFollow = false
-    }
+    },
+    getParams () {
+      if (this.$route.query.category) {
+        this.select = this.$route.query.category
+      }
+    },
+    getCategory (category) {
+      this.select = category
+      if (this.$route.query.category) {
+        this.$router.push('/menu')
+      }
+    },
   },
-  created() {
-    this.getProducts();
-    this.getCart();
+  created () {
+    this.getProducts()
+    this.getCart()
+    this.getParams()
   },
   computed: {
-    filterData: function() {
-      if (this.category === "main") {
-        var main = [];
-        this.products.forEach(function(item) {
-          if (item.category === "主餐") {
-            main.push(item);
-          }
-        });
-        return main;
-      } else if (this.category === "light") {
-        var light = [];
-        this.products.forEach(function(item) {
-          if (item.category === "輕食") {
-            light.push(item);
-          }
-        });
-        return light;
-      } else if (this.category === "sweet") {
-        var sweet = [];
-        this.products.forEach(function(item) {
-          if (item.category === "甜點") {
-            sweet.push(item);
-          }
-        });
-        return sweet;
-      } else if (this.category === "drink") {
-        var drink = [];
-        this.products.forEach(function(item) {
-          if (item.category === "飲品") {
-            drink.push(item);
-          }
-        });
-        return drink;
-      } else if (this.category === "alcohol") {
-        var alcohol = [];
-        this.products.forEach(function(item) {
-          if (item.category === "酒精") {
-            alcohol.push(item);
-          }
-        });
-        return alcohol;
-      } else if (this.category === "decending") {
-        return this.products.sort((a, b) => {
-          a = a.price;
-          b = b.price;
-          return a - b;
-        });
-      } else if (this.category === "ascending") {
-        return this.products.sort((a, b) => {
-          a = a.price;
-          b = b.price;
-          return b - a;
-        });
-      } else {
-        return this.products;
+    filterProducts () {
+      // if (this.filterText) {
+      //   this.select = 'ALL'
+      //   return this.products.filter(item => item.title.indexOf(this.filterText) !== -1)
+      // }
+      if (this.select !== 'ALL') {
+        return this.products.filter(item => item.category === this.select)
       }
+      return this.products
     },
     ...mapGetters(["favorites"]),
     ...mapState(["isLoading"])
