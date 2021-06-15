@@ -2,6 +2,7 @@
   <div class="">
     <navbar />
     <Message />
+    <MsgMask />
     <router-view></router-view>
     <footer2></footer2>
   </div>
@@ -11,12 +12,14 @@
 import Navbar from '../components/Navbar.vue'
 import Footer2 from '../components/Footer.vue'
 import Message from '../components/Message.vue'
+import MsgMask from "../components/MsgMask.vue"
 
 export default {
   components: {
     Navbar,
     Footer2,
-    Message
+    Message,
+    MsgMask
   }
 }
 </script>

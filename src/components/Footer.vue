@@ -1,7 +1,7 @@
 <template lang="">
   <footer class="container-fluid mt-5 border px-5 bg-secondary text-white position-relative">
     <div class="row mx-5 px-5">
-      <div class="col-6 px-5 my-5 lh-1">
+      <div class="col-md-6 col-sm-12 my-5 lh-1">
         <h3 class="fw-bold">營業時間</h3>
         <p class="fs-6">11 : 00 ~ 14 : 30 ( 最後點餐時間14 : 00 )</p>
         <p class="fs-6">17 : 00 ~ 22 : 00 ( 最後點餐時間21 : 00 )</p>
@@ -12,8 +12,8 @@
         <a href="#" class="text-white"><i class="fab fa-instagram fs-3 pe-3"></i></a>
         <a href="#" class="text-white"><i class="fab fa-line fs-3 pe-3"></i></a>
       </div>
-      <div class="col-6">
-        <div id="map" class=" mt-5" style="width:100%; height:250px"></div>
+      <div class="col-md-6 col-sm-12 ">
+        <div id="map" class="mt-5" style="width:100%; height:250px"></div>
       </div>
     </div>
     <p class="text-center">Copyright © 2021 EatWell Limited. All rights reserved.</p>

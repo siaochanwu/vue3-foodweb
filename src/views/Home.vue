@@ -12,7 +12,7 @@
   <div class="mt-3">
     <h1 class="fs-2 text-warning mb-3">熱門分類</h1>
     <div class="row">
-      <div class="hot col-3 position-relative" v-for="(item, index) in categories" :key="index" @click.prevent="categoryBtn(item.title)">
+      <div class="hot col-lg-3 col-md-6 col-sm-12 position-relative mb-3" v-for="(item, index) in categories" :key="index" @click.prevent="categoryBtn(item.title)">
         <img class="img" :src="require(`../assets/${item.img}`)" alt="" style="width:100%;height:200px">
         <h3 class="text position-absolute top-50 start-50 translate-middle">{{ item.title }}</h3>
       </div>
@@ -20,10 +20,10 @@
   </div>
 
   <div class="row mt-5">
-    <div class="col-5 m-0 p-0">
+    <div class="col-lg-5 col-md-12 m-0 p-0">
       <img src="../assets/img11.jpg" alt="" style="width:100%">
     </div>
-    <div class="col-7 bg-light p-4 pt-5">
+    <div class="col-lg-7 col-md-12 bg-light p-4 pt-5">
       <div class="d-flex justify-content-around mb-3">
         <h3 class="text-center text-warning fw-bold">Healthy</h3>
         <h3 class="text-center text-warning fw-bold">Real</h3>
@@ -45,14 +45,14 @@
   </div>
   <div class="position-relative">
     <img src="../assets/img12.jpg" alt="" class="mt-5" style="width:100%; height:300px">
-    <div class="position-absolute top-50 start-50 translate-middle border border-5 border-dark p-3">
+    <div class="position-absolute top-50 start-50 translate-middle border border-5 border-dark p-3 mt-3">
       <div class="text-dark bg-white p-3">
         <h3 class="">S u b s c r i b e</h3>
         <h5 class="">訂閱我們，隨時收到最新優惠通知！</h5>
         <label for="exampleInputEmail1" class="form-label">Email address</label>
         <div class="d-flex">
           <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" v-model="email">
-          <button class="input-group-text" id="inputGroupPrepend" @click="subscribe">訂閱</button>
+          <button class="input-group-text btn bg-light" id="inputGroupPrepend" @click="subscribe">訂閱</button>
         </div>
 
       </div>
@@ -105,7 +105,7 @@ export default {
         this.$store.dispatch('msg', {
           Boolean: true,
           msg: '請輸入正確EMAIL格式',
-          msgStatus: 'error'
+          msgState: 'error'
         })
       } else {
         this.$store.dispatch('msg', {

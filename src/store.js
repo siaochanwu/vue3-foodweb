@@ -10,6 +10,7 @@ export default new Vuex.Store({
     msg: '',
     msgModal: false,
     msgMask: false,
+    msgState: ''
   },
   mutations: {
     LOADING (state, payload) {
@@ -30,7 +31,8 @@ export default new Vuex.Store({
       })
     },
     MSG (state, payload) {
-      // state.msgMask = payload.Boolean
+      state.msgMask = payload.Boolean
+      state.msgModal = payload.Boolean
       state.msgState = payload.msgState
       state.msg = payload.msg
     },
@@ -39,10 +41,6 @@ export default new Vuex.Store({
     loading (context, payload) {
       context.commit('LOADING', payload)
     },
-    getFavorite (context) {
-      const favoriteData = JSON.parse(localStorage.getItem('favoriteData')) || []
-      context.commit('FAVORITES', favoriteData)
-    },
     addToFavorite (context, product) {
       const favoriteData = {
         id: product.id,
@@ -50,12 +48,10 @@ export default new Vuex.Store({
       }
       context.commit('PUSH_FAVORITE', favoriteData)
       localStorage.setItem('favoriteData', JSON.stringify(context.state.favorites))
-      context.dispatch('getFavorite')
     },
     removeFavorite (context, favoriteItem) {
       context.commit('REMOVE_FAVORITE', favoriteItem)
       localStorage.setItem('favoriteData', JSON.stringify(context.state.favorites))
-      context.dispatch('getFavorite')
     },
     msg (context, payload) {
       context.commit('MSG', payload)
