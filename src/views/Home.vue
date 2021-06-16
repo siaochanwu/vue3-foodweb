@@ -45,7 +45,7 @@
   </div>
   <div class="position-relative">
     <img src="../assets/img12.jpg" alt="" class="mt-5" style="width:100%; height:300px">
-    <div class="position-absolute top-50 start-50 translate-middle border border-5 border-dark p-3 mt-3">
+    <div class="subscribe position-absolute top-50 start-50 translate-middle border border-5 border-dark p-3 mt-3">
       <div class="text-dark bg-white p-3">
         <h3 class="">S u b s c r i b e</h3>
         <h5 class="">訂閱我們，隨時收到最新優惠通知！</h5>

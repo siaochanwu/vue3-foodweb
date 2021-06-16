@@ -1,6 +1,6 @@
 <template lang="">
   <footer class="container-fluid mt-5 border px-5 bg-secondary text-white position-relative">
-    <div class="row mx-5 px-5">
+    <div class="row">
       <div class="col-md-6 col-sm-12 my-5 lh-1">
         <h3 class="fw-bold">營業時間</h3>
         <p class="fs-6">11 : 00 ~ 14 : 30 ( 最後點餐時間14 : 00 )</p>
@@ -64,3 +64,10 @@ export default {
   }
 }
 </script>
+<style>
+@media screen and (max-width:768px) {
+  #map {
+    display: none;
+  }
+}
+</style>

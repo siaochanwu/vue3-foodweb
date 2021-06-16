@@ -32,7 +32,7 @@
         </form>
       </div>
     </div>
-    <div class="cartdetail position-absolute bg-light p-2 rounded shadow-sm p-3 mb-5 overflow-auto" :class="{ close: !active}" style="height:500px">
+    <div class="cartdetail position-absolute bg-light p-2 rounded shadow-sm p-3 mb-5 overflow-auto" :class="{ close: !active}">
       <div class="title d-flex justify-content-between">
         <span class="fw-bold fs-5">您的購物袋裡有{{ cartData.length }}件商品</span>
         <button type="button" class="btn-close" aria-label="Close" @click="seecart"></button>
@@ -49,10 +49,10 @@
               <p class="">數量:{{item.qty}}</p>
               {{ item.product.unit}}
             </div>
-            <div>
+            <!-- <div>
               <button type="button" class="btn btn-outline-danger rounded-0 rounded-start btn-sm" @click="addtoCart(item.product_id, item.qty-1)">-1</button>
               <button type="button" class="btn btn-outline-success btn-sm  rounded-0 rounded-end" @click="addtoCart(item.product_id, item.qty+1)">+1</button>
-            </div>
+            </div> -->
             <div class="d-flex justify-content-between">
               <span>${{ item.product.price }}</span>
               <button
@@ -80,12 +80,13 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   data () {
     return {
       cart: {},
       active: false,
-      cartData: {},
       status: {
         loadingItem: ''
       },
@@ -106,56 +107,31 @@ export default {
         })
     },
     getCart () {
-      const vm = this
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/cart`
-      this.$http.get(api).then((response) => {
-        console.log(response.data.data.carts)
-        vm.cartData = response.data.data.carts
-      })
+      this.$store.dispatch('getCart')
     },
     getProduct (id) {
-      const vm = this
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/product/${id}`
-
       this.$http.get(api).then((response) => {
-        vm.product = response.data.product
+        this.product = response.data.product
         console.log(response)
-        vm.status.loadingItem = ''
+        this.status.loadingItem = ''
       })
     },
-    addtoCart (id, qty = 1) {
-      console.log(id, qty)
-      const vm = this
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/cart`
-      vm.status.loadingItem = id
-      const cart = {
-        product_id: id,
-        qty
-      }
-      console.log(cart)
-      this.$http.post(api, cart).then((response) => {
-        console.log(response)
-        vm.status.loadingItem = ''
-        vm.getCart()
-        // vm.$router.go(0)
-        console.log(this.cartData)
-      })
+    addtoCart (id) {
+      this.$store.dispatch('addToCart', { id: id, qty: 1 })
+      this.active = false
     },
     removeItem (id) {
-      const vm = this
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/cart/${id}`
-      this.$http.delete(api).then(res => {
-        console.log(res.data)
-        vm.getCart()
-      })
+      this.$store.dispatch('removeCart', id)
+      this.active = false
     },
     seecart () {
       this.active = !this.active
     },
     search () {
       if (this.searchText === '') return
+    },
 
-    }
   },
   created () {
     this.getCart()
@@ -165,6 +141,7 @@ export default {
     hasData () {
       return this.cartData.length > 0 ? true : false
     },
+    ...mapState(['cartData'])
   }
 }
 </script>

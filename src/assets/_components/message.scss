@@ -8,6 +8,7 @@
     overflow: hidden;
     height: 0;
     width: 600px;
+    max-width: 80%;
     z-index: 100;
     background: #fff;
     border-radius: 5px;
@@ -30,5 +31,4 @@
             padding-left: 20px;
         }
     }
-
 }

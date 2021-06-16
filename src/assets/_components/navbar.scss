@@ -11,3 +11,14 @@
         display: none;
     }
 }
+@media screen and (max-width:768px) {
+    .cartdetail {
+        top: 100%;
+        right: 10px;
+        max-width: 90%;
+        height: auto;
+        &.close{
+            display: none;
+        }
+    }
+}
