@@ -22,12 +22,15 @@
         <form class="d-flex">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-light" type="submit">Search</button>
-          <div class=" d-flex justify-content-center align-items-center mx-2">
-            <i class="fas fa-heart fs-3 text-white" @click="seeFavorite">
+          <div class=" d-flex justify-content-center align-items-center mx-3 position-relative">
+            <i class="fas fa-heart fs-2 text-white" @click="seeFavorite">
+              <span class="position-absolute top-10 start-90 translate-middle badge rounded-circle bg-danger fs-6" v-show="favoriteData.length > 0">
+                {{favoriteData.length}}
+              </span>
             </i>
           </div>
           <div class="cart d-flex justify-content-center align-items-center position-relative" @click="getCart" style="width:40px">
-            <i class="fas fa-cart-plus px-2" @click="seecart">
+            <i class="fas fa-cart-plus px-2 fs-2" @click="seecart">
               <span class="position-absolute top-10 start-90 translate-middle badge rounded-circle bg-danger fs-6" v-show="cartData.length > 0">
                 {{cartData.length}}
               </span>
@@ -39,7 +42,7 @@
 
     <div class="favorite position-absolute bg-light p-2 rounded shadow-sm p-3 mb-5 overflow-auto" :class="{ close: !fav}">
       <div class="title d-flex justify-content-between mb-3">
-        <span class="fw-bold fs-5 border-bottom border-3 border-warning">您的收藏有{{ cartData.length }}件商品</span>
+        <span class="fw-bold fs-5 border-bottom border-3 border-warning">您的收藏有{{ favoriteData.length }}件商品</span>
         <button type="button" class="btn-close" aria-label="Close" @click="seeFavorite"></button>
       </div>
       <div v-for="item in favoriteData" :key="item.id">
