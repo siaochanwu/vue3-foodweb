@@ -1,5 +1,15 @@
 <template>
   <div class="Product">
+    <loading :active.sync="isLoading">
+    <!-- 客製樣式 -->
+      <div class="load-wrapp">
+        <div class="load-3">
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </div>
+      </div>
+    </loading>
     <div class="container">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb mt-3 mb-5">
@@ -75,19 +85,23 @@ export default {
   },
   methods: {
     getProducts () {
+      const vm = this;
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/products/all`
       this.$store.dispatch("loading", true)
       this.$http.get(api).then(response => {
-        this.products = response.data.products
-        for (let i = 0; i < this.products.length; i++) {
-          this.$set(this.products[i], "isFollow", false)
-          this.favorites.forEach(item => {
-            if (this.products[i].id === item.id) {
-              console.log(item)
-              this.isFollow = true
-            }
-          })
-        }
+        vm.products = response.data.products
+        const favoriteData = JSON.parse(localStorage.getItem('favoriteData'))
+        console.log(favoriteData)
+        // for (let i = 0; i < vm.products.length; i++) {
+        //   this.$set(this.products[i], "isFollow", false)
+        //   favoriteData.forEach(item => {
+        //     if (item.id === this.products[i].id) {
+        //       this.products[i].isFollow = true
+        //     }
+        //   })
+        // }
+        console.log(response)
+        this.$store.dispatch("loading", false)
       })
     },
     getProduct () {

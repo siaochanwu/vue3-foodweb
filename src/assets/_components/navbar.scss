@@ -2,7 +2,19 @@
     color: #fff;
     font-size: 25px;
 }
+i {
+    cursor: pointer;
+}
 .cartdetail {
+    top: 70px;
+    right: 10px;
+    max-width: 30%;
+    height: auto;
+    &.close{
+        display: none;
+    }
+}
+.favorite {
     top: 70px;
     right: 10px;
     max-width: 30%;
@@ -13,6 +25,15 @@
 }
 @media screen and (max-width:768px) {
     .cartdetail {
+        top: 100%;
+        right: 10px;
+        max-width: 90%;
+        height: auto;
+        &.close{
+            display: none;
+        }
+    }
+    .favorite {
         top: 100%;
         right: 10px;
         max-width: 90%;

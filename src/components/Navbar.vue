@@ -22,6 +22,10 @@
         <form class="d-flex">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-light" type="submit">Search</button>
+          <div class=" d-flex justify-content-center align-items-center mx-2">
+            <i class="fas fa-heart fs-3 text-white" @click="seeFavorite">
+            </i>
+          </div>
           <div class="cart d-flex justify-content-center align-items-center position-relative" @click="getCart" style="width:40px">
             <i class="fas fa-cart-plus px-2" @click="seecart">
               <span class="position-absolute top-10 start-90 translate-middle badge rounded-circle bg-danger fs-6" v-show="cartData.length > 0">
@@ -32,6 +36,20 @@
         </form>
       </div>
     </div>
+
+    <div class="favorite position-absolute bg-light p-2 rounded shadow-sm p-3 mb-5 overflow-auto" :class="{ close: !fav}">
+      <div class="title d-flex justify-content-between mb-3">
+        <span class="fw-bold fs-5 border-bottom border-3 border-warning">您的收藏有{{ cartData.length }}件商品</span>
+        <button type="button" class="btn-close" aria-label="Close" @click="seeFavorite"></button>
+      </div>
+      <div v-for="item in favoriteData" :key="item.id">
+        <router-link :to="`/menu/${item.id}`" class="text-warning text-decoration-none">
+          <p class="p-0 m-0">{{ item.title }}</p>
+        </router-link>
+        <hr>
+      </div>
+    </div>
+
     <div class="cartdetail position-absolute bg-light p-2 rounded shadow-sm p-3 mb-5 overflow-auto" :class="{ close: !active}">
       <div class="title d-flex justify-content-between">
         <span class="fw-bold fs-5">您的購物袋裡有{{ cartData.length }}件商品</span>
@@ -86,11 +104,14 @@ export default {
   data () {
     return {
       cart: {},
+      carts: JSON.parse(localStorage.getItem('cartData')) || [],
       active: false,
       status: {
         loadingItem: ''
       },
-      searchText: ''
+      searchText: '',
+      fav: false,
+      favoriteData: JSON.parse(localStorage.getItem('favoriteData'))
     }
   },
   methods: {
@@ -128,9 +149,14 @@ export default {
     seecart () {
       this.active = !this.active
     },
-    search () {
-      if (this.searchText === '') return
+    seeFavorite () {
+      this.fav = !this.fav
     },
+    search () {
+      if (this.searchText === '') {
+        return
+      }
+    }
 
   },
   created () {
