@@ -58,10 +58,12 @@ export default new Vuex.Store({
       }
       context.commit('PUSH_FAVORITE', favoriteData)
       localStorage.setItem('favoriteData', JSON.stringify(context.state.favorites))
+      context.dispatch('msg', { msg: '加入我的最愛', Boolean: true })
     },
     removeFavorite (context, favoriteItem) {
       context.commit('REMOVE_FAVORITE', favoriteItem)
       localStorage.setItem('favoriteData', JSON.stringify(context.state.favorites))
+      context.dispatch('msg', { msg: '取消我的最愛', Boolean: true })
     },
     msg (context, payload) {
       context.commit('MSG', payload)

@@ -40,7 +40,7 @@
         <h6 class="text-dark">產品成分 : {{ product.content }}</h6>
         <div class="d-flex">
           <button class="btn btn-danger d-flex justify-content-center align-items-center me-3" @click="addtoCart(num)"><i class="fas fa-cart-plus px-1 fs-5 text-white"></i>加入購物車</button>
-          <button class="btn btn-danger d-flex justify-content-center align-items-center" @click="addtoCart()">立即購買</button>
+          <button class="btn btn-danger d-flex justify-content-center align-items-center" @click="addtoCart(product)">立即購買</button>
         </div>
       </div>
     </div>
@@ -125,18 +125,19 @@ export default {
         this.$store.dispatch('loading', false)
       })
     },
-    addtoCart (qty = 1) {
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/cart`
-      const cart = {
-        product_id: this.productId,
-        qty
-      }
-      this.$http.post(api, { data: cart }).then(response => {
-        console.log(response)
-        // this.status.loadingItem = ''
-        // this.getCart()
-      })
-    },
+    addtoCart (data) {
+      // const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/cart`
+      // const cart = {
+      //   product_id: this.productId,
+      //   qty
+      // }
+      // this.$http.post(api, { data: cart }).then(response => {
+      //   console.log(response)
+      //   // this.status.loadingItem = ''
+      //   // this.getCart()
+      // })
+      this.$store.dispatch('addToCart', { data, qty: 1 })
+    }
   },
   created () {
     this.productId = this.$route.params.productId

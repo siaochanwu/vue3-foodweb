@@ -155,12 +155,11 @@ export default {
     seeFavorite () {
       this.fav = !this.fav
     },
-    search () {
-      if (this.searchText === '') {
-        return
-      }
-    }
-
+    // search () {
+    //   if (this.searchText === '') {
+    //     return
+    //   }
+    // }
   },
   created () {
     this.getCart()
