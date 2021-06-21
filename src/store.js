@@ -13,7 +13,8 @@ export default new Vuex.Store({
     msgMask: false,
     msgState: '',
     cartData: [],
-    carts: JSON.parse(localStorage.getItem('cartData')) || []
+    carts: JSON.parse(localStorage.getItem('cartData')) || [],
+    searchText: ''
   },
   mutations: {
     LOADING (state, payload) {
@@ -40,11 +41,18 @@ export default new Vuex.Store({
       state.msgState = payload.msgState
       state.msg = payload.msg
     },
+    MASK (state, payload) {
+      state.msgMask = payload
+    },
     CART (state, payload) {
       state.cartData = payload
     },
     CARTS (state, payload) {
       state.carts = payload
+    },
+    SEARCH (state, payload) {
+      state.searchText = payload
+      
     }
   },
   actions: {
@@ -67,6 +75,9 @@ export default new Vuex.Store({
     },
     msg (context, payload) {
       context.commit('MSG', payload)
+    },
+    mask (context, payload) {
+      context.commit('MASK', payload)
     },
     getCart (context) {
       const url = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/cart`
@@ -137,6 +148,9 @@ export default new Vuex.Store({
 
         })
       })
+    },
+    search (context, payload) {
+      context.commit('SEARCH', payload)
     }
   },
   getters: {

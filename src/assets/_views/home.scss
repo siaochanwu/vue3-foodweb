@@ -1,7 +1,8 @@
+$background-color: #eee;
+$radius-size: 12px;
 .home {
   .imgtext {
       background-color: rgba(192, 192, 192, 0.548);
-      
   }
   .img {
     opacity: 1;
@@ -22,6 +23,87 @@
     opacity: 1;
   }
   .subscribe {
-    width: 90%;
+    width: 50%;
+  }
+  @media screen and (max-width:576px) {
+    .subscribe {
+      width: 90%;
+    }
+  }
+  .coupons {
+    background: $background-color;
+    padding: 20px;
+    width: 500px;
+    border-radius: $radius-size;
+    z-index: 100;
+    &.close {
+      display: none;
+    }
+    .close {
+      position: absolute;
+      top: 0%;
+      right: 0%;
+      border-radius: 50%;
+      z-index: 101;
+    }
+    .coupon {
+      display: flex;
+      align-items: stretch;
+      justify-content: stretch;
+      
+      .coupon-intro {
+        position: relative;
+        padding: 10px;
+        background: #fff;
+        flex: 3;
+        
+        ul {
+          color: #aaa;
+          padding-left: 20px;
+        }
+        
+        &:after {
+          content: ' ';
+          border: 2px dashed $background-color;
+          height: 100%;
+          position: absolute;
+          top: 0;
+          right: -2px;
+          z-index: 2;
+        }
+      }
+      
+      .coupon-value {
+        display: flex;
+        flex: 1;
+        position: relative;
+        background: #efac37;
+        color: #fff;
+        font-size: 38px;
+        align-items: center;
+        justify-content: center;
+        
+        &:before {
+          content: ' ';
+          width: $radius-size * 2;
+          height: $radius-size * 2;
+          position: absolute;
+          top: -$radius-size;
+          left: -$radius-size;
+          border-radius: 100%;
+          background: $background-color;
+        }
+        &:after {
+          content: ' ';
+          width: $radius-size * 2;
+          height: $radius-size * 2;
+          position: absolute;
+          bottom: -$radius-size;
+          left: -$radius-size;
+          border-radius: 100%;
+          background: $background-color;
+        }
+      }
+    }
   }
 }

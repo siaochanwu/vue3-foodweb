@@ -20,8 +20,8 @@
         </li>
         </ul>
         <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-light" type="submit">Search</button>
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" v-model="searchProduct">
+          <button class="btn btn-outline-light" type="submit" @click="search(searchProduct)">Search</button>
           <div class=" d-flex justify-content-center align-items-center mx-3 position-relative">
             <i class="fas fa-heart fs-2 text-white" @click="seeFavorite">
               <span class="position-absolute top-10 start-90 translate-middle badge rounded-circle bg-danger fs-6" v-show="favoriteData.length > 0">
@@ -109,10 +109,8 @@ export default {
       cart: {},
       carts: JSON.parse(localStorage.getItem('cartData')) || [],
       active: false,
-      status: {
-        loadingItem: ''
-      },
-      searchText: '',
+      products: [],
+      searchProduct: '',
       fav: false,
       favoriteData: JSON.parse(localStorage.getItem('favoriteData'))
     }
@@ -138,7 +136,6 @@ export default {
       this.$http.get(api).then((response) => {
         this.product = response.data.product
         console.log(response)
-        this.status.loadingItem = ''
       })
     },
     addtoCart (id) {
@@ -155,21 +152,26 @@ export default {
     seeFavorite () {
       this.fav = !this.fav
     },
-    // search () {
-    //   if (this.searchText === '') {
-    //     return
-    //   }
-    // }
+    search (text) {
+      console.log(text)
+      this.$store.dispatch('search', text)
+      // if (this.$route) {}
+      if (this.$route.name !== 'menu') {
+        this.$router.push('/menu').catch(err => {
+          console.log(err)
+        })
+      }
+      this.searchProduct = ''
+    }
   },
   created () {
     this.getCart()
-    // this.getProducts()
   },
   computed: {
     hasData () {
       return this.cartData.length > 0 ? true : false
     },
-    ...mapState(['cartData'])
+    ...mapState(['cartData', 'searchText'])
   }
 }
 </script>

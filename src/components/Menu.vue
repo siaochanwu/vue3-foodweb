@@ -125,8 +125,6 @@
 </template>
 
 <script>
-import $ from "jquery"
-import { mapGetters } from "vuex"
 import { mapState } from 'vuex'
 
 export default {
@@ -163,7 +161,7 @@ export default {
   },
   methods: {
     getProducts () {
-      const vm = this;
+      const vm = this
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/products/all`
       this.$store.dispatch("loading", true)
       this.$http.get(api).then(response => {
@@ -242,17 +240,15 @@ export default {
   },
   computed: {
     filterProducts () {
-      // if (this.filterText) {
-      //   this.select = 'ALL'
-      //   return this.products.filter(item => item.title.indexOf(this.filterText) !== -1)
-      // }
+      if (this.searchText) {
+        return this.products.filter(item => item.title.indexOf(this.searchText) !== -1)
+      }
       if (this.select !== 'ALL') {
         return this.products.filter(item => item.category === this.select)
       }
       return this.products
     },
-    ...mapGetters(["favorites"]),
-    ...mapState(["isLoading", "cartData"])
+    ...mapState(['isLoading', 'cartData', 'searchText'])
 
   }
 };
