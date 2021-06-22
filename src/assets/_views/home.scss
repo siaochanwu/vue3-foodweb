@@ -33,9 +33,10 @@ $radius-size: 12px;
   .coupons {
     background: $background-color;
     padding: 20px;
-    width: 80%;
+    width: 500px;
     border-radius: $radius-size;
     z-index: 100;
+    
     &.close {
       display: none;
     }
@@ -104,6 +105,11 @@ $radius-size: 12px;
           background: $background-color;
         }
       }
+    }
+  }
+  @media screen and (max-width:576px) {
+    .coupons {
+      width: 80%;
     }
   }
 }
