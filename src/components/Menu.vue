@@ -11,8 +11,8 @@
     </div>
   </loading>
   <div class="container">
-    <div class="row mt-3">
-      <div class="col-2 mt-5 pt-2">
+    <div class="row mt-3 position-relative">
+      <div class="sidebar col-2 mt-5 pt-2">
         <div class="list-group" style="width:100%">
           <a
             href="#" v-for="(item, index) in categories" :key="index" @click="getCategory(item.title)"

@@ -12,21 +12,21 @@
     </loading>
     <div class="container">
       <nav aria-label="breadcrumb">
-        <ol class="breadcrumb mt-3 mb-5">
+        <ol class="breadcrumb mt-3 mb-3">
           <li class="breadcrumb-item"><router-link to="/" class="text-decoration-none text-secondary">主頁</router-link></li>
           <li class="breadcrumb-item"><router-link to="/menu" class="text-decoration-none text-secondary">菜單</router-link></li>
           <li class="breadcrumb-item active text-warning" aria-current="page">{{ product.title}}</li>
         </ol>
       </nav>
       <div class="row mb-5">
-      <div class="col-6">
+      <div class="col-md-6 col-sm-12">
         <!-- <span class="badge bg-warning text-dark fs-6 mt-3">{{ product.category }}</span> -->
         <div
           style="width:100%;height: 350px; background-size: contain; background-position: center; background-repeat: no-repeat;"
           :style="{ backgroundImage: `url(${product.imageUrl})` }"
         ></div>
       </div>
-      <div class="col-6">
+      <div class="col-md-6 col-sm-12">
         <h1 class="text-dark border-0 border-bottom border-3 border-warning" style="width:auto;">{{ product.title }}</h1>
         <h6 class="border-0 border-start border-4 border-warning p-2 bg-light my-3 fw-light">{{ product.description }}</h6>
         <h6 class="text-decoration-line-through">NT$ {{ product.origin_price }}</h6>
@@ -111,31 +111,11 @@ export default {
         if (response.data.success) {
           console.log(response.data)
           this.product = response.data.product
-          // // 若已在 vm.favorites 中則 vm.isFavorite = true
-          // for (let i = 0; i < this.products.length; i++) {
-          //   this.$set(this.products[i], 'isFollow', false)
-          //   this.favorites.forEach((item) => {
-          //     if (this.products[i].id === item.id) {
-          //       console.log(item)
-          //       this.isFollow = true
-          //     }
-          //   })
-          // }
         }
         this.$store.dispatch('loading', false)
       })
     },
     addtoCart (data) {
-      // const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/cart`
-      // const cart = {
-      //   product_id: this.productId,
-      //   qty
-      // }
-      // this.$http.post(api, { data: cart }).then(response => {
-      //   console.log(response)
-      //   // this.status.loadingItem = ''
-      //   // this.getCart()
-      // })
       this.$store.dispatch('addToCart', { data, qty: 1 })
     }
   },
