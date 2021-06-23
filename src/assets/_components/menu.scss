@@ -33,7 +33,14 @@
       background-color: #4b9cdb;
     }
     .container {
-        padding: 0;
+      padding: 0;
+      .sidebar {
+        position: sticky;
+        height: 300px;
+        top: 10%;
+        left: 0%;
+        // bottom: 50px;
+      }
       .none {
         display: none;
       }

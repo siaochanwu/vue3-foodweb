@@ -20,10 +20,17 @@
         </li>
         </ul>
         <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-light" type="submit">Search</button>
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" v-model="searchProduct">
+          <button class="btn btn-outline-light" type="submit" @click="search(searchProduct)">Search</button>
+          <div class=" d-flex justify-content-center align-items-center mx-3 position-relative">
+            <i class="fas fa-heart fs-2 text-white" @click="seeFavorite">
+              <span class="position-absolute top-10 start-90 translate-middle badge rounded-circle bg-danger fs-6" v-show="favoriteData.length > 0">
+                {{favoriteData.length}}
+              </span>
+            </i>
+          </div>
           <div class="cart d-flex justify-content-center align-items-center position-relative" @click="getCart" style="width:40px">
-            <i class="fas fa-cart-plus px-2" @click="seecart">
+            <i class="fas fa-cart-plus px-2 fs-2" @click="seecart">
               <span class="position-absolute top-10 start-90 translate-middle badge rounded-circle bg-danger fs-6" v-show="cartData.length > 0">
                 {{cartData.length}}
               </span>
@@ -32,7 +39,21 @@
         </form>
       </div>
     </div>
-    <div class="cartdetail position-absolute bg-light p-2 rounded shadow-sm p-3 mb-5 overflow-auto" :class="{ close: !active}" style="height:500px">
+
+    <div class="favorite position-absolute bg-light p-2 rounded shadow-sm p-3 mb-5 overflow-auto" :class="{ close: !fav}">
+      <div class="title d-flex justify-content-between mb-3">
+        <span class="fw-bold fs-5 border-bottom border-3 border-warning">您的收藏有{{ favoriteData.length }}件商品</span>
+        <button type="button" class="btn-close" aria-label="Close" @click="seeFavorite"></button>
+      </div>
+      <div v-for="item in favoriteData" :key="item.id">
+        <router-link :to="`/menu/${item.id}`" class="text-warning text-decoration-none">
+          <p class="p-0 m-0">{{ item.title }}</p>
+        </router-link>
+        <hr>
+      </div>
+    </div>
+
+    <div class="cartdetail position-absolute bg-light p-2 rounded shadow-sm p-3 mb-5 overflow-auto" :class="{ close: !active}">
       <div class="title d-flex justify-content-between">
         <span class="fw-bold fs-5">您的購物袋裡有{{ cartData.length }}件商品</span>
         <button type="button" class="btn-close" aria-label="Close" @click="seecart"></button>
@@ -49,10 +70,10 @@
               <p class="">數量:{{item.qty}}</p>
               {{ item.product.unit}}
             </div>
-            <div>
+            <!-- <div>
               <button type="button" class="btn btn-outline-danger rounded-0 rounded-start btn-sm" @click="addtoCart(item.product_id, item.qty-1)">-1</button>
               <button type="button" class="btn btn-outline-success btn-sm  rounded-0 rounded-end" @click="addtoCart(item.product_id, item.qty+1)">+1</button>
-            </div>
+            </div> -->
             <div class="d-flex justify-content-between">
               <span>${{ item.product.price }}</span>
               <button
@@ -80,16 +101,18 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   data () {
     return {
       cart: {},
+      carts: JSON.parse(localStorage.getItem('cartData')) || [],
       active: false,
-      cartData: {},
-      status: {
-        loadingItem: ''
-      },
-      searchText: ''
+      products: [],
+      searchProduct: '',
+      fav: false,
+      favoriteData: JSON.parse(localStorage.getItem('favoriteData'))
     }
   },
   methods: {
@@ -106,65 +129,49 @@ export default {
         })
     },
     getCart () {
-      const vm = this
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/cart`
-      this.$http.get(api).then((response) => {
-        console.log(response.data.data.carts)
-        vm.cartData = response.data.data.carts
-      })
+      this.$store.dispatch('getCart')
     },
     getProduct (id) {
-      const vm = this
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/product/${id}`
-
       this.$http.get(api).then((response) => {
-        vm.product = response.data.product
+        this.product = response.data.product
         console.log(response)
-        vm.status.loadingItem = ''
       })
     },
-    addtoCart (id, qty = 1) {
-      console.log(id, qty)
-      const vm = this
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/cart`
-      vm.status.loadingItem = id
-      const cart = {
-        product_id: id,
-        qty
-      }
-      console.log(cart)
-      this.$http.post(api, cart).then((response) => {
-        console.log(response)
-        vm.status.loadingItem = ''
-        vm.getCart()
-        // vm.$router.go(0)
-        console.log(this.cartData)
-      })
+    addtoCart (id) {
+      this.$store.dispatch('addToCart', { id: id, qty: 1 })
+      this.active = false
     },
     removeItem (id) {
-      const vm = this
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/cart/${id}`
-      this.$http.delete(api).then(res => {
-        console.log(res.data)
-        vm.getCart()
-      })
+      this.$store.dispatch('removeCart', id)
+      this.active = false
     },
     seecart () {
       this.active = !this.active
     },
-    search () {
-      if (this.searchText === '') return
-
+    seeFavorite () {
+      this.fav = !this.fav
+    },
+    search (text) {
+      console.log(text)
+      this.$store.dispatch('search', text)
+      // if (this.$route) {}
+      if (this.$route.name !== 'menu') {
+        this.$router.push('/menu').catch(err => {
+          console.log(err)
+        })
+      }
+      this.searchProduct = ''
     }
   },
   created () {
     this.getCart()
-    // this.getProducts()
   },
   computed: {
     hasData () {
       return this.cartData.length > 0 ? true : false
     },
+    ...mapState(['cartData', 'searchText'])
   }
 }
 </script>
