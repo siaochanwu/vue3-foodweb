@@ -85,14 +85,13 @@ export default {
   },
   methods: {
     getProducts () {
-      const vm = this;
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/products/all`
-      this.$store.dispatch("loading", true)
+      this.$store.dispatch('loading', true)
       this.$http.get(api).then(response => {
-        vm.products = response.data.products
+        this.products = response.data.products
         const favoriteData = JSON.parse(localStorage.getItem('favoriteData'))
         console.log(favoriteData)
-        // for (let i = 0; i < vm.products.length; i++) {
+        // for (let i = 0; i < this.products.length; i++) {
         //   this.$set(this.products[i], "isFollow", false)
         //   favoriteData.forEach(item => {
         //     if (item.id === this.products[i].id) {
@@ -101,7 +100,7 @@ export default {
         //   })
         // }
         console.log(response)
-        this.$store.dispatch("loading", false)
+        this.$store.dispatch('loading', false)
       })
     },
     getProduct () {

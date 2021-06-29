@@ -35,12 +35,12 @@
           </button>
           <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
             <li>
-              <button class="dropdown-item" @click="category = 'decending'">
+              <button class="dropdown-item" @click="decending">
                 價格 : 由低到高
               </button>
             </li>
             <li>
-              <button class="dropdown-item" @click="category = 'ascending'">
+              <button class="dropdown-item" @click="ascending">
                 價格 : 由高到低
               </button>
             </li>
@@ -133,19 +133,19 @@ export default {
       products: [],
       product: {},
       status: {
-        loadingItem: ""
+        loadingItem: ''
       },
       cart: {},
       carts: JSON.parse(localStorage.getItem('cartData')) || [],
-      coupon_code: "",
+      coupon_code: '',
       form: {
         user: {
-          name: "",
-          email: "",
-          tel: "",
-          address: ""
+          name: '',
+          email: '',
+          tel: '',
+          address: ''
         },
-        message: ""
+        message: ''
       },
       categories: [
         { name: 'all', title: 'ALL' },
@@ -157,19 +157,18 @@ export default {
       ],
       select: 'ALL',
       isFollow: false
-    };
+    }
   },
   methods: {
     getProducts () {
-      const vm = this
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/products/all`
-      this.$store.dispatch("loading", true)
+      this.$store.dispatch('loading', true)
       this.$http.get(api).then(response => {
-        vm.products = response.data.products
+        this.products = response.data.products
         const favoriteData = JSON.parse(localStorage.getItem('favoriteData'))
         console.log(favoriteData)
-        for (let i = 0; i < vm.products.length; i++) {
-          this.$set(this.products[i], "isFollow", false)
+        for (let i = 0; i < this.products.length; i++) {
+          this.$set(this.products[i], 'isFollow', false)
           favoriteData.forEach(item => {
             if (item.id === this.products[i].id) {
               this.products[i].isFollow = true
@@ -177,16 +176,15 @@ export default {
           })
         }
         console.log(response)
-        this.$store.dispatch("loading", false)
+        this.$store.dispatch('loading', false)
       })
     },
     getProduct (id) {
-      const vm = this
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/product/${id}`
-      vm.status.loadingItem = id
+      this.status.loadingItem = id
       this.$http.get(api).then(response => {
-        vm.product = response.data.product
-        vm.status.loadingItem = ""
+        this.product = response.data.product
+        this.status.loadingItem = ''
       })
     },
     addtoCart (data) {
@@ -194,31 +192,29 @@ export default {
       this.$store.dispatch('addToCart', { data, qty: 1 })
     },
     getCart () {
-      const vm = this;
-      this.$store.dispatch("loading", true);
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/cart`;
+      this.$store.dispatch('loading', true)
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/cart`
       this.$http.get(api).then(response => {
-        console.log(response);
-        vm.cart = response.data.data;
-        this.$store.dispatch("loading", false);
-      });
+        console.log(response)
+        this.cart = response.data.data
+        this.$store.dispatch('loading', false)
+      })
     },
     removeItem (id) {
-      const vm = this;
-      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/cart/${id}`;
-      this.$store.dispatch("loading", true);
+      const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/cart/${id}`
+      this.$store.dispatch('loading', true)
       this.$http.delete(api).then(response => {
-        console.log(response);
-        vm.getCart();
-        this.$store.dispatch("loading", false);
-      });
+        console.log(response)
+        this.getCart()
+        this.$store.dispatch('loading', false)
+      })
     },
     follow (product) {
-      this.$store.dispatch("addToFavorite", product)
+      this.$store.dispatch('addToFavorite', product)
       product.isFollow = true
     },
     unfollow (product) {
-      this.$store.dispatch("removeFavorite", product)
+      this.$store.dispatch('removeFavorite', product)
       product.isFollow = false
     },
     getParams () {
@@ -231,6 +227,16 @@ export default {
       if (this.$route.query.category) {
         this.$router.push('/menu')
       }
+    },
+    decending () {
+      this.products.sort((a, b) => {
+        return a.price - b.price
+      })
+    },
+    ascending () {
+      this.products.sort((a, b) => {
+        return b.price - a.price
+      })
     }
   },
   created () {
@@ -251,5 +257,5 @@ export default {
     ...mapState(['isLoading', 'cartData', 'searchText'])
 
   }
-};
+}
 </script>

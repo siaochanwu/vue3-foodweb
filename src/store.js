@@ -14,7 +14,8 @@ export default new Vuex.Store({
     msgState: '',
     cartData: [],
     carts: JSON.parse(localStorage.getItem('cartData')) || [],
-    searchText: ''
+    searchText: '',
+    orderId: ''
   },
   mutations: {
     LOADING (state, payload) {
@@ -28,7 +29,6 @@ export default new Vuex.Store({
       state.favorites.push(favorite)
     },
     REMOVE_FAVORITE (state, favorite) {
-
       state.favorites.forEach((item, index) => {
         if (item.id === favorite.id) {
           state.favorites.splice(index, 1)
@@ -52,7 +52,9 @@ export default new Vuex.Store({
     },
     SEARCH (state, payload) {
       state.searchText = payload
-      
+    },
+    ORDER (state, payload) {
+      state.orderId = payload
     }
   },
   actions: {
@@ -145,12 +147,14 @@ export default new Vuex.Store({
             console.log('123')
             context.state.carts.splice(key, 1)
           }
-
         })
       })
     },
     search (context, payload) {
       context.commit('SEARCH', payload)
+    },
+    order (context, payload) {
+      context.commit('ORDER', payload)
     }
   },
   getters: {

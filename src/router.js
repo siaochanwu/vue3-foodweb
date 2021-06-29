@@ -43,6 +43,11 @@ export default new Router({
           path: 'customer_order',
           name: 'customerOrder',
           component: () => import('./views/CustomerOrder.vue')
+        },
+        {
+          path: 'orderDone',
+          name: 'orderDone',
+          component: () => import('./views/OrderDone.vue')
         }
       ]
     }

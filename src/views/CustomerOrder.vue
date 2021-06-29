@@ -1,12 +1,22 @@
 <template>
   <div class="CustomerOrder container mt-5">
+    <loading :active.sync="isLoading">
+    <!-- 客製樣式 -->
+      <div class="load-wrapp">
+        <div class="load-3">
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </div>
+      </div>
+    </loading>
     <div class="position-relative m-4">
-    <div class="progress" style="height: 2px;">
+    <div class="progress px-5" style="height: 2px;">
       <div class="progress-bar bg-success" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
       </div>
-      <button type="button" class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-success rounded-pill" style="width: 7rem; height:2rem;">加入購物車</button>
+      <button type="button" class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-success rounded-pill ms-4" style="width: 7rem; height:2rem;">加入購物車</button>
       <button type="button" class="position-absolute top-0 start-50 translate-middle btn btn-sm btn-success rounded-pill" style="width: 7rem; height:2rem;">填寫基本資料</button>
-      <button type="button" class="position-absolute top-0 start-100 translate-middle btn btn-sm btn-secondary rounded-pill" style="width: 7rem; height:2rem;">確認訂單</button>
+      <button type="button" class="position-absolute top-0 start-100 translate-middle btn btn-sm btn-secondary rounded-pill me-5" style="width: 7rem; height:2rem;">確認訂單</button>
     </div>
     <div class="my-5 row justify-content-center" v-show="cart.total > 0">
       <div class="col-lg-6">
@@ -150,7 +160,8 @@
 </template>
 
 <script>
-import $ from 'jquery'
+import { mapState } from 'vuex'
+
 export default {
   data () {
     return {
@@ -175,65 +186,68 @@ export default {
   },
   methods: {
     addCouponCode () {
-      const vm = this
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/coupon`
       const coupon = {
-        code: vm.coupon_code
+        code: this.coupon_code
       }
       this.$store.dispatch('loading', true)
       this.$http.post(api, { data: coupon }).then((response) => {
         console.log(response)
-        vm.getCart()
+        this.getCart()
         this.$store.dispatch('loading', false)
       })
     },
     createOrder () {
-      const vm = this
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/order`
-      const order = vm.form
+      const order = this.form
       this.$store.dispatch('loading', true)
-      vm.$refs.form.validate().then((success) => {
+      this.$refs.form.validate().then((success) => {
         if (success) {
-          vm.$http.post(api, { data: order }).then((response) => {
+          this.$http.post(api, { data: order }).then((response) => {
             console.log('訂單已建立', response)
+            const orderID = response.data.orderId
+            this.$store.dispatch('order', orderID)
+            this.$store.dispatch('msg', { msg: '您的訂單已送出', Boolean: true })
             if (response.data.success) {
-              vm.$router.push(`/customer_checkout/${response.data.orderId}`)
+              console.log(response.data.orderId)
+              this.$router.push(`/orderDone`)
             }
             this.$store.dispatch('loading', false)
           })
         } else {
+          this.$store.dispatch('msg', { msg: '訂單欄位不完整', Boolean: true })
           console.log('欄位不完整')
         }
       })
     },
     getCart () {
-      const vm = this
       this.$store.dispatch('loading', true)
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/cart`
       this.$http.get(api).then((response) => {
         console.log(response)
-        vm.cart = response.data.data
+        this.cart = response.data.data
         this.$store.dispatch('loading', false)
       })
     },
     addtoCart (id, qty = 1) {
-      const vm = this
       const api = `${process.env.VUE_APP_API}/api/${process.env.VUE_APP_CUSTOMER}/cart`
-      vm.status.loadingItem = id
+      this.status.loadingItem = id
       const cart = {
         product_id: id,
         qty
       }
       this.$http.post(api, { data: cart }).then((response) => {
         console.log(response)
-        vm.status.loadingItem = ''
-        vm.getCart()
-        $('#productModal').modal('hide')
+        this.status.loadingItem = ''
+        this.getCart()
       })
     }
   },
   created () {
     this.getCart()
+  },
+  computed: {
+    ...mapState(['isLoading'])
   }
 }
 </script>
