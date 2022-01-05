@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex"
+import { mapState } from 'vuex'
 
 export default {
   data () {
@@ -98,7 +98,6 @@ export default {
     }
   },
   methods: {
-    
     categoryBtn (categoryTitle) {
       this.$router.push({ path: '/menu', query: { category: categoryTitle } })
     },
@@ -135,7 +134,7 @@ export default {
     this.$store.dispatch('mask', true)
   },
   computed: {
-    ...mapState(["msgMask"])
+    ...mapState(['msgMask'])
   }
 }
 </script>

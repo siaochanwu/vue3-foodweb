@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <navbar />
+    <Navbar1 />
     <Message />
     <MsgMask />
     <router-view></router-view>
@@ -9,14 +9,14 @@
 </template>
 
 <script>
-import Navbar from '../components/Navbar.vue'
+import Navbar1 from '../components/Navbar.vue'
 import Footer2 from '../components/Footer.vue'
 import Message from '../components/Message.vue'
-import MsgMask from "../components/MsgMask.vue"
+import MsgMask from '../components/MsgMask.vue'
 
 export default {
   components: {
-    Navbar,
+    Navbar1,
     Footer2,
     Message,
     MsgMask
