@@ -1,0 +1,1 @@
+@media screen and (max-width:768px){#map{display:none}}.MsgMask{display:none;position:fixed;top:0;bottom:0;left:0;right:0;background:rgba(0,0,0,.664);z-index:99;cursor:pointer}.MsgMask.open{display:block}
