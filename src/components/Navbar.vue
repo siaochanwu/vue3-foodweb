@@ -97,7 +97,7 @@ export default {
       products: [],
       searchProduct: '',
       fav: false,
-      favoriteData: JSON.parse(localStorage.getItem('favoriteData'))
+      favoriteData: 0
     }
   },
   methods: {
@@ -151,6 +151,7 @@ export default {
   },
   created () {
     this.getCart()
+    this.favoriteData = JSON.parse(localStorage.getItem('favoriteData'))
   },
   computed: {
     hasData () {

@@ -68,6 +68,7 @@ export default new Vuex.Store({
       }
       context.commit('PUSH_FAVORITE', favoriteData)
       localStorage.setItem('favoriteData', JSON.stringify(context.state.favorites))
+      console.log(localStorage.getItem('favoriteData'))
       context.dispatch('msg', { msg: '加入我的最愛', Boolean: true })
     },
     removeFavorite (context, favoriteItem) {
@@ -92,7 +93,6 @@ export default new Vuex.Store({
       context.state.cartData.forEach((item) => {
         cacheID.push(item.product_id)
       })
-      console.log(cacheID)
       if (cacheID.indexOf(data.id) === -1) {
         const cacheContent = {
           product_id: data.id, // 產品 ID
@@ -144,7 +144,6 @@ export default new Vuex.Store({
         context.dispatch('msg', { msg: response.data.message, Boolean: true })
         context.state.carts.forEach((item, key) => {
           if (item.product_id === id) {
-            console.log('123')
             context.state.carts.splice(key, 1)
           }
         })

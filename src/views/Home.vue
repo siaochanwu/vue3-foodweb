@@ -43,7 +43,7 @@
     </div>
   </div>
   </div>
-  <div class="position-relative">
+  <div class="position-relative container">
     <img src="../assets/img12.jpg" alt="" class="mt-5" style="width:100%; height:300px">
     <div class="subscribe position-absolute top-50 start-50 translate-middle border border-5 border-dark p-3 mt-3">
       <div class="text-dark bg-white p-3">

@@ -14,9 +14,9 @@
     <div class="progress px-5" style="height: 2px;">
       <div class="progress-bar bg-success" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
       </div>
-      <button type="button" class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-success rounded-pill ms-4" style="width: 7rem; height:2rem;">加入購物車</button>
-      <button type="button" class="position-absolute top-0 start-50 translate-middle btn btn-sm btn-success rounded-pill" style="width: 7rem; height:2rem;">填寫基本資料</button>
-      <button type="button" class="position-absolute top-0 start-100 translate-middle btn btn-sm btn-secondary rounded-pill me-5" style="width: 7rem; height:2rem;">確認訂單</button>
+      <button type="button" class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-success rounded-pill ms-2" style="height:2rem;">加入購物車</button>
+      <button type="button" class="position-absolute top-0 start-50 translate-middle btn btn-sm btn-success rounded-pill" style="height:2rem;">填寫基本資料</button>
+      <button type="button" class="position-absolute top-0 start-100 translate-middle btn btn-sm btn-secondary rounded-pill me-2" style="width: 5rem; height:2rem;">確認訂單</button>
     </div>
     <div class="my-5 row justify-content-center" v-show="cart.total > 0">
       <div class="col-lg-6">

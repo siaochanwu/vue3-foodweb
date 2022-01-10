@@ -1,5 +1,5 @@
 <template lang="">
-  <footer class="container-fluid mt-5 border px-5 bg-secondary text-white position-relative">
+  <footer class="container container-fluid mt-5 border px-5 bg-secondary text-white position-relative">
     <div class="row">
       <div class="col-md-6 col-sm-12 my-5 lh-1">
         <h3 class="fw-bold">營業時間</h3>
@@ -33,7 +33,7 @@ export default {
     // 建立地圖
     initMap () {
       // 透過 Map 物件建構子建立新地圖 map 物件實例，並將地圖呈現在 id 為 map 的元素中
-      this.map = new google.maps.Map(document.getElementById("map"), {
+      this.map = new google.maps.Map(document.getElementById('map'), {
         // 設定地圖的中心點經緯度位置
         center: { lat: this.lat, lng: this.lng },
         // 設定地圖縮放比例 0-20
